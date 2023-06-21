@@ -1,7 +1,7 @@
 package ru.home.test_app.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.home.test_app.config.QuizProps;
 import ru.home.test_app.dao.QuestionReader;
 import ru.home.test_app.model.Person;
 import ru.home.test_app.model.Question;
@@ -17,10 +17,9 @@ public class QuizServiceImpl implements QuizService{
     private final QuestionReader questionReader;
     private final Integer rightAns;
 
-    public QuizServiceImpl(@Value("${enoughAns}") Integer rightAns,
-                           QuestionReader questionReader) {
+    public QuizServiceImpl(QuestionReader questionReader, QuizProps quizProps) {
         this.questionReader = questionReader;
-        this.rightAns = rightAns;
+        this.rightAns = quizProps.getSuccessResult();
     }
 
     @Override
@@ -28,11 +27,11 @@ public class QuizServiceImpl implements QuizService{
         List<Question> questionList = questionReader.readQuestion();
         int counter = 0;
         for (Question question : questionList) {
-            System.out.println(question.getId()+ " " + question.getText());
-            question.getAns().forEach(System.out::println);
+            System.out.println(question.id() + " " + question.question());
+            question.options().forEach(System.out::println);
             System.out.print("Your answer: ");
             String ans = new BufferedReader(new InputStreamReader(System.in)).readLine();
-            if (ans.equals(question.getRightAns()))
+            if (ans.equals(question.answer()))
                 counter++;
         }
         return counter;

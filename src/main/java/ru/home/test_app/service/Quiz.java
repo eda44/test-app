@@ -1,20 +1,19 @@
-package ru.home.test_app;
+package ru.home.test_app.service;
 
-
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 import ru.home.test_app.model.Person;
-import ru.home.test_app.service.QuizService;
-import ru.home.test_app.service.QuizServiceImpl;
 
 import java.io.IOException;
 
-@SpringBootApplication
-public class App {
-    public static void main( String[] args ) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(App.class);
-        QuizService quiz = context.getBean("quizServiceImpl", QuizServiceImpl.class);
+@Component
+public class Quiz {
+    private final QuizService quiz;
+
+    public Quiz(QuizService quiz) {
+        this.quiz = quiz;
+    }
+
+    public void startTest() {
         try {
             Person person = quiz.askName();
             int count = quiz.makeQuiz();
