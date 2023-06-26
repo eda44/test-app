@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import ru.home.test_app.config.QuizProps;
 import ru.home.test_app.service.Quiz;
 
@@ -19,5 +22,4 @@ public class TestAppApplication {
 		Quiz quiz = context.getBean(Quiz.class);
 		quiz.startTest();
 	}
-
 }

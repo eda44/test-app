@@ -7,5 +7,5 @@ import ru.home.test_app.model.Question;
 import java.util.List;
 
 public interface QuestionReader {
-    List<Question> readQuestion();
+    List<Question> readQuestions();
 }
